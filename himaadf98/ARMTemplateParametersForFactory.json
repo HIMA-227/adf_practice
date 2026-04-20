@@ -4,6 +4,12 @@
 	"parameters": {
 		"factoryName": {
 			"value": "himaadf98"
+		},
+		"linked_service_gen2_accountKey": {
+			"value": ""
+		},
+		"linked_service_gen2_properties_typeProperties_url": {
+			"value": "https://himagen21.dfs.core.windows.net/"
 		}
 	}
 }
