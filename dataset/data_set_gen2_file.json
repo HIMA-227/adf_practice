@@ -1,5 +1,5 @@
 {
-	"name": "data_set_gen2_01",
+	"name": "data_set_gen2_file",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "linked_service_gen2",
