@@ -1,0 +1,6 @@
+{
+	"wait_g": {
+		"type": "int",
+		"value": 5
+	}
+}
