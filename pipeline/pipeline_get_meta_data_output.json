@@ -34,8 +34,6 @@
 			{
 				"name": "If Condition1",
 				"type": "IfCondition",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Get Metadata1",
@@ -47,7 +45,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@activity('Get Metadata1').output.columnCount",
+						"value": "@equals(\n    activity('Get Metadata1').output.columnCount,\n    pipeline().parameters.num\n)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
@@ -57,7 +55,10 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"waitTimeInSeconds": 3
+								"waitTimeInSeconds": {
+									"value": "@pipeline().parameters.num",
+									"type": "Expression"
+								}
 							}
 						}
 					],
@@ -68,7 +69,10 @@
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
-								"waitTimeInSeconds": 5
+								"waitTimeInSeconds": {
+									"value": "@pipeline().parameters.num",
+									"type": "Expression"
+								}
 							}
 						}
 					]
@@ -77,7 +81,7 @@
 		],
 		"parameters": {
 			"num": {
-				"type": "string"
+				"type": "int"
 			}
 		},
 		"annotations": []
