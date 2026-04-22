@@ -1,0 +1,50 @@
+{
+	"name": "ds_sql_table_01",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sql_db1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "customer_name",
+				"type": "varchar"
+			},
+			{
+				"name": "city",
+				"type": "varchar"
+			},
+			{
+				"name": "product",
+				"type": "varchar"
+			},
+			{
+				"name": "sale_amount",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "commission_rate",
+				"type": "decimal",
+				"precision": 4,
+				"scale": 2
+			},
+			{
+				"name": "order_date",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "himaschema",
+			"table": "pretable"
+		}
+	}
+}
