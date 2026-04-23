@@ -5,8 +5,6 @@
 			{
 				"name": "Stored procedure_parameter",
 				"type": "SqlServerStoredProcedure",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -16,39 +14,6 @@
 					"secureInput": false
 				},
 				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "himaschema.usp_UpdatePretable",
-					"storedProcedureParameters": {
-						"city": {
-							"value": "hima",
-							"type": "String"
-						},
-						"commission_rate": {
-							"value": "7.0",
-							"type": "Decimal"
-						},
-						"customer_name": {
-							"value": "honey",
-							"type": "String"
-						},
-						"id": {
-							"value": "42",
-							"type": "Int32"
-						},
-						"order_date": {
-							"value": "2025-03-23",
-							"type": "DateTime"
-						},
-						"product": {
-							"value": "book",
-							"type": "String"
-						},
-						"sale_amount": {
-							"value": "400",
-							"type": "Decimal"
-						}
-					}
-				},
 				"linkedServiceName": {
 					"referenceName": "ls_sql_db1",
 					"type": "LinkedServiceReference"
@@ -57,8 +22,6 @@
 			{
 				"name": "Lookup_result",
 				"type": "Lookup",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Stored procedure_parameter",
