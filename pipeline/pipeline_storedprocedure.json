@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Stored procedure1",
+				"name": "Stored procedure_parameter",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -15,7 +15,37 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "himaschema.test_update"
+					"storedProcedureName": "himaschema.usp_UpdatePretable",
+					"storedProcedureParameters": {
+						"city": {
+							"value": "hima",
+							"type": "String"
+						},
+						"commission_rate": {
+							"value": "7.0",
+							"type": "Decimal"
+						},
+						"customer_name": {
+							"value": "honey",
+							"type": "String"
+						},
+						"id": {
+							"value": "14",
+							"type": "Int32"
+						},
+						"order_date": {
+							"value": "",
+							"type": "DateTime"
+						},
+						"product": {
+							"value": "book",
+							"type": "String"
+						},
+						"sale_amount": {
+							"value": "400",
+							"type": "Decimal"
+						}
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "ls_sql_db1",
