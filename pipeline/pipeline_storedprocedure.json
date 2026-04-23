@@ -34,7 +34,7 @@
 							"type": "Int32"
 						},
 						"order_date": {
-							"value": null,
+							"value": "2025-03-23",
 							"type": "DateTime"
 						},
 						"product": {
@@ -121,7 +121,8 @@
 					"dataset": {
 						"referenceName": "ds_sql_table_01",
 						"type": "DatasetReference"
-					}
+					},
+					"firstRowOnly": false
 				}
 			}
 		],
