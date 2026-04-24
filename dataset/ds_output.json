@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "input002",
 				"fileSystem": "input001"
 			},
 			"columnDelimiter": ",",
