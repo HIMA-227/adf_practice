@@ -1,0 +1,35 @@
+{
+	"name": "validate_fail_delete",
+	"properties": {
+		"activities": [
+			{
+				"name": "Validation_folder",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "data_set_folder",
+						"type": "DatasetReference"
+					},
+					"sleep": 10
+				}
+			},
+			{
+				"name": "Validation_file",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "data_set_folder",
+						"type": "DatasetReference"
+					},
+					"timeout": "0.12:00:00",
+					"sleep": 10
+				}
+			}
+		],
+		"annotations": []
+	}
+}
