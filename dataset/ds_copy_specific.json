@@ -1,0 +1,29 @@
+{
+	"name": "ds_copy_specific",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "linked_service_gen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "1B4-SubjectwiseAttd-Upto16032020-1.xls",
+				"folderPath": "input002/input003",
+				"fileSystem": "input001"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "��\u0011ࡱ\u001a�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000>\u0000\u0003\u0000��\t\u0000\u0006\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\f\u0004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0010\u0000\u0000����\u0000\u0000\u0000\u0000����\u0000\u0000\u0000\u0000\u0003\u0004\u0000\u0000\u0004\u0004\u0000\u0000\u0005\u0004\u0000\u0000\u0006\u0004\u0000\u0000\u0007\u0004\u0000\u0000\b\u0004\u0000\u0000\t\u0004\u0000\u0000",
+				"type": "String"
+			}
+		]
+	}
+}
