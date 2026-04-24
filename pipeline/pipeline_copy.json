@@ -241,7 +241,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_output",
+						"referenceName": "ds_conatiner",
 						"type": "DatasetReference"
 					}
 				]
