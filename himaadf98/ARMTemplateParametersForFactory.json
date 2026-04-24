@@ -22,6 +22,9 @@
 		},
 		"ls_sql_db1_properties_typeProperties_userName": {
 			"value": "himaadmin"
+		},
+		"event_base_sam_properties_typeProperties_scope": {
+			"value": "/subscriptions/b9257822-39e9-42e4-a179-91fcd355694e/resourceGroups/Sam_Resource/providers/Microsoft.Storage/storageAccounts/himagen21"
 		}
 	}
 }

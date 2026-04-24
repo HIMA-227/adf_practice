@@ -30,6 +30,10 @@
 		"ls_sql_db1_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "himaadmin"
+		},
+		"event_base_sam_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/b9257822-39e9-42e4-a179-91fcd355694e/resourceGroups/Sam_Resource/providers/Microsoft.Storage/storageAccounts/himagen21"
 		}
 	},
 	"variables": {
@@ -590,6 +594,81 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/pipeline_script')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Script_query",
+						"type": "Script",
+						"dependsOn": [
+							{
+								"activity": "Script_Nonquery",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"linkedServiceName": {
+							"referenceName": "ls_sql_db1",
+							"type": "LinkedServiceReference"
+						},
+						"typeProperties": {
+							"scripts": [
+								{
+									"type": "Query",
+									"text": "select * from himaschema.pretable"
+								}
+							],
+							"scriptBlockExecutionTimeout": "02:00:00"
+						}
+					},
+					{
+						"name": "Script_Nonquery",
+						"type": "Script",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"linkedServiceName": {
+							"referenceName": "ls_sql_db1",
+							"type": "LinkedServiceReference"
+						},
+						"typeProperties": {
+							"scripts": [
+								{
+									"type": "NonQuery",
+									"text": "INSERT INTO himaschema.pretable \n(id, customer_name, city, product, sale_amount, commission_rate, order_date)\nVALUES\n(114, 'Ranga', 'Honey', 'Phone', 9000.00, 0.07, '2025-05-27')"
+								}
+							],
+							"scriptBlockExecutionTimeout": "02:00:00"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_db1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pipeline_storedprocedure')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -703,6 +782,70 @@
 				"annotations": []
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/validate_fail_delete')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Validation_folder",
+						"type": "Validation",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "data_set_folder",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"timeout": "0.00:05:00",
+							"sleep": 10
+						}
+					},
+					{
+						"name": "Validation_file",
+						"type": "Validation",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "data_set_gen2_file",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"timeout": "0.00:05:00",
+							"sleep": 10
+						}
+					},
+					{
+						"name": "Fail1",
+						"type": "Fail",
+						"dependsOn": [
+							{
+								"activity": "Validation_folder",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"message": "folder didnot found",
+							"errorCode": "34567"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/data_set_folder')]",
+				"[concat(variables('factoryId'), '/datasets/data_set_gen2_file')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/data_set_folder')]",
@@ -924,6 +1067,37 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/event_base_sam')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "validate_fail_delete",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/input001/blobs/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('event_base_sam_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated",
+						"Microsoft.Storage.BlobDeleted"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/validate_fail_delete')]"
+			]
 		}
 	]
 }
