@@ -12,6 +12,7 @@
 						"referenceName": "data_set_folder",
 						"type": "DatasetReference"
 					},
+					"timeout": "0.00:05:00",
 					"sleep": 10
 				}
 			},
@@ -22,11 +23,28 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "data_set_folder",
+						"referenceName": "data_set_gen2_file",
 						"type": "DatasetReference"
 					},
-					"timeout": "0.12:00:00",
+					"timeout": "0.00:05:00",
 					"sleep": 10
+				}
+			},
+			{
+				"name": "Fail1",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Validation_folder",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": "folder didnot found",
+					"errorCode": "34567"
 				}
 			}
 		],
