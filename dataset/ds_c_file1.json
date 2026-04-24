@@ -1,5 +1,5 @@
 {
-	"name": "ds_file1",
+	"name": "ds_c_file1",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "linked_service_gen2",
