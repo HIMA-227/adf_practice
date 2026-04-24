@@ -204,8 +204,6 @@
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
-							"wildcardFolderPath": "input002",
-							"wildcardFileName": "*.xls",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
