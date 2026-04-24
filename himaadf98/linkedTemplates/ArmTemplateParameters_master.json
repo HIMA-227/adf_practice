@@ -8,8 +8,20 @@
 		"linked_service_gen2_accountKey": {
 			"value": ""
 		},
+		"ls_sql_db1_password": {
+			"value": ""
+		},
 		"linked_service_gen2_properties_typeProperties_url": {
 			"value": "https://himagen21.dfs.core.windows.net/"
+		},
+		"ls_sql_db1_properties_typeProperties_server": {
+			"value": "himaserver.database.windows.net"
+		},
+		"ls_sql_db1_properties_typeProperties_database": {
+			"value": "free-sql-db-9170469"
+		},
+		"ls_sql_db1_properties_typeProperties_userName": {
+			"value": "himaadmin"
 		},
 		"containerUri": {
 			"value": ""

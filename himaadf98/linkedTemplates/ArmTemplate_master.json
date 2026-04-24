@@ -11,9 +11,25 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'linked_service_gen2'"
 		},
+		"ls_sql_db1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_sql_db1'"
+		},
 		"linked_service_gen2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://himagen21.dfs.core.windows.net/"
+		},
+		"ls_sql_db1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "himaserver.database.windows.net"
+		},
+		"ls_sql_db1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "free-sql-db-9170469"
+		},
+		"ls_sql_db1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "himaadmin"
 		},
 		"containerUri": {
 			"type": "string",
@@ -45,8 +61,20 @@
 					"linked_service_gen2_accountKey": {
 						"value": "[parameters('linked_service_gen2_accountKey')]"
 					},
+					"ls_sql_db1_password": {
+						"value": "[parameters('ls_sql_db1_password')]"
+					},
 					"linked_service_gen2_properties_typeProperties_url": {
 						"value": "[parameters('linked_service_gen2_properties_typeProperties_url')]"
+					},
+					"ls_sql_db1_properties_typeProperties_server": {
+						"value": "[parameters('ls_sql_db1_properties_typeProperties_server')]"
+					},
+					"ls_sql_db1_properties_typeProperties_database": {
+						"value": "[parameters('ls_sql_db1_properties_typeProperties_database')]"
+					},
+					"ls_sql_db1_properties_typeProperties_userName": {
+						"value": "[parameters('ls_sql_db1_properties_typeProperties_userName')]"
 					}
 				}
 			},
