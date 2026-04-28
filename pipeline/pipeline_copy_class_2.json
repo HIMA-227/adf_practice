@@ -19,6 +19,7 @@
 						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
+							"fileListPath": "input001/list_files.txt",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -28,12 +29,13 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "FlattenHierarchy"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
 							"quoteAllText": true,
-							"fileExtension": ".txt"
+							"fileExtension": ""
 						}
 					},
 					"enableStaging": false,
@@ -54,7 +56,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_output",
+						"referenceName": "ds_list_output",
 						"type": "DatasetReference"
 					}
 				]
