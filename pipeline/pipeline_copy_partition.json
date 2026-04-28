@@ -17,6 +17,16 @@
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
+						"additionalColumns": [
+							{
+								"name": "samdata",
+								"value": "hima"
+							},
+							{
+								"name": "sal_dupe",
+								"value": "$$COLUMN:Salary"
+							}
+						],
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
