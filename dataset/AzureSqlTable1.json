@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "himaschema",
-			"table": "students"
+			"table": "students1`"
 		}
 	}
 }
