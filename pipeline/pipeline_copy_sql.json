@@ -86,9 +86,13 @@
 						"type": "AzureSqlSink",
 						"writeBehavior": "upsert",
 						"upsertSettings": {
-							"useTempDB": true
+							"useTempDB": true,
+							"keys": [
+								"StudentID"
+							]
 						},
 						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -97,7 +101,7 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "StudentID",
+									"name": "Studentid",
 									"type": "String",
 									"physicalType": "String"
 								},
