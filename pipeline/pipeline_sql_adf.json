@@ -110,7 +110,7 @@
 				]
 			},
 			{
-				"name": "Copy_sql_sql_copy1",
+				"name": "Copy_sql_sql_query",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -124,7 +124,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select distinct * from [himaschema].[students] where course = 'Python'",
+						"sqlReaderQuery": "",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -181,6 +181,54 @@
 					"sink": {
 						"type": "AzureSqlSink",
 						"preCopyScript": "delete * from dbo.student",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "AzureSqlTable2",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_sql_sql",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy_sql_sql_query_name_change",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "=",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"disableMetricsCollection": false
