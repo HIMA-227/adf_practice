@@ -10,7 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "output_file",
+				"fileName": "himaschema.students.txt",
+				"folderPath": "output1",
 				"fileSystem": "copyactivityfolder"
 			},
 			"columnDelimiter": ",",
