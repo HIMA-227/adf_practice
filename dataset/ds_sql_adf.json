@@ -1,0 +1,23 @@
+{
+	"name": "ds_sql_adf",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "linked_service_gen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "output1",
+				"fileSystem": "copyactivityfolder"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

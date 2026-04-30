@@ -1,0 +1,37 @@
+{
+	"name": "AzureSqlTable2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sql_db1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "StudentID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "StudentName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Course",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Score",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Result",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "himaschema",
+			"table": "students"
+		}
+	}
+}
