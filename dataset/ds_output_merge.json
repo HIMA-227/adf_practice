@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "merge_2_files.csv",
 				"folderPath": "output3",
 				"fileSystem": "copyactivityfolder"
 			},
