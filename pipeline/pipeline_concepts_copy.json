@@ -286,7 +286,7 @@
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
-							"maxRowsPerFile": 5,
+							"maxRowsPerFile": 1,
 							"quoteAllText": true,
 							"fileExtension": ".csv"
 						}
@@ -317,6 +317,8 @@
 			{
 				"name": "file_to_folder_skip",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
