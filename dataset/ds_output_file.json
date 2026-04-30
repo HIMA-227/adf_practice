@@ -1,0 +1,23 @@
+{
+	"name": "ds_output_file",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "linked_service_gen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "output_file",
+				"fileSystem": "copyactivityfolder"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
