@@ -1,0 +1,30 @@
+{
+	"name": "ds_para_source_dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sql_db1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"sou_schema_name": {
+				"type": "string"
+			},
+			"sou_table_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().sou_schema_name",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().sou_table_name",
+				"type": "Expression"
+			}
+		}
+	}
+}
