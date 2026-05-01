@@ -5,12 +5,16 @@
 			"referenceName": "ls_sql_db1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"source_schema_name": {
+				"type": "string"
+			},
+			"source_table_name": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [],
-		"typeProperties": {
-			"schema": "himaschema",
-			"table": "students1`"
-		}
+		"schema": []
 	}
 }
