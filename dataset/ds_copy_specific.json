@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "1B4-SubjectwiseAttd-Upto16032020-1.xls",
-				"folderPath": "input002/input003",
+				"folderPath": "outpu_para_dataset",
 				"fileSystem": "input001"
 			},
 			"columnDelimiter": ",",
