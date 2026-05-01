@@ -28,7 +28,7 @@
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
 							"quoteAllText": true,
-							"fileExtension": ".txt"
+							"fileExtension": ""
 						}
 					},
 					"enableStaging": false,
@@ -43,11 +43,15 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "AzureSqlTable1",
+						"referenceName": "ds_para_source_dataset",
 						"type": "DatasetReference",
 						"parameters": {
-							"source_schema_name": {
-								"value": "@pipeline().parameters.source_schema_para",
+							"sou_schema_name": {
+								"value": "@pipeline().parameters.p_sou_sch",
+								"type": "Expression"
+							},
+							"sou_table_name": {
+								"value": "@pipeline().parameters.p_sou_tab",
 								"type": "Expression"
 							}
 						}
@@ -55,17 +59,17 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "data_set_folder",
+						"referenceName": "ds_copy_specific",
 						"type": "DatasetReference"
 					}
 				]
 			}
 		],
 		"parameters": {
-			"source_schema_para": {
+			"p_sou_sch": {
 				"type": "string"
 			},
-			"source_table_para": {
+			"p_sou_tab": {
 				"type": "string"
 			}
 		},
