@@ -89,6 +89,29 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/pipeline_calling_rest')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Wait1",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": 10
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pipeline_copy')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2456,7 +2479,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline_calling_rest')]",
+			"name": "[concat(parameters('factoryName'), '/pipeline_calling_himaadf')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
