@@ -79,13 +79,33 @@
 					},
 					"ls_sql_db1_properties_typeProperties_userName": {
 						"value": "[parameters('ls_sql_db1_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "himaadf98_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
 					},
 					"event_base_sam_properties_typeProperties_scope": {
 						"value": "[parameters('event_base_sam_properties_typeProperties_scope')]"
 					}
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'himaadf98_ArmTemplate_0')]"
+			]
 		}
 	]
 }
