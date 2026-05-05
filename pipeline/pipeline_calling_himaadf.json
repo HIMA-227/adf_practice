@@ -14,8 +14,6 @@
 			{
 				"name": "Web1",
 				"type": "WebActivity",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Wait1",
@@ -31,9 +29,29 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": {
+						"value": "@pipeline().parameters.callbackurl",
+						"type": "Expression"
+					},
+					"body": {
+						"status code": 200,
+						"message": "pipeline run completed"
+					},
+					"authentication": {
+						"type": "ServicePrincipal",
+						"userTenant": "20af5dab-fc57-481c-b70f-bd79fcb6e497"
+					}
+				}
 			}
 		],
+		"parameters": {
+			"callbackurl": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
