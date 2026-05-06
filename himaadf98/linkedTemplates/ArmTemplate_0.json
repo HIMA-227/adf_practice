@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ls_sql_db1'"
 		},
+		"AzureDatabricks_parameter_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks_parameter'"
+		},
 		"linked_service_gen2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://himagen21.dfs.core.windows.net/"
@@ -30,6 +34,10 @@
 		"ls_sql_db1_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "himaadmin"
+		},
+		"AzureDatabricks_parameter_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0420-081433-ilqpegm3"
 		}
 	},
 	"variables": {
@@ -83,7 +91,11 @@
 							},
 							"authentication": {
 								"type": "ServicePrincipal",
-								"userTenant": "20af5dab-fc57-481c-b70f-bd79fcb6e497"
+								"userTenant": "20af5dab-fc57-481c-b70f-bd79fcb6e497",
+								"password": {
+									"type": "SecureString",
+									"value": "**********"
+								}
 							}
 						}
 					}
@@ -295,6 +307,24 @@
 						"type": "SecureString",
 						"value": "[parameters('ls_sql_db1_password')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricks_parameter')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-7405606493717925.5.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDatabricks_parameter_accessToken')]"
+					},
+					"existingClusterId": "[parameters('AzureDatabricks_parameter_properties_typeProperties_existingClusterId')]"
 				}
 			},
 			"dependsOn": []
@@ -858,55 +888,6 @@
 				"schema": [
 					{
 						"name": "��\u0011ࡱ\u001a�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000>\u0000\u0003\u0000��\t\u0000\u0006\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\f\u0004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0010\u0000\u0000����\u0000\u0000\u0000\u0000����\u0000\u0000\u0000\u0000\u0003\u0004\u0000\u0000\u0004\u0004\u0000\u0000\u0005\u0004\u0000\u0000\u0006\u0004\u0000\u0000\u0007\u0004\u0000\u0000\b\u0004\u0000\u0000\t\u0004\u0000\u0000",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/linked_service_gen2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_list_output')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "linked_service_gen2",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "output_folder/test_wild",
-						"fileSystem": "input001"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "StudentID",
-						"type": "String"
-					},
-					{
-						"name": "StudentName",
-						"type": "String"
-					},
-					{
-						"name": "Course",
-						"type": "String"
-					},
-					{
-						"name": "Score",
-						"type": "String"
-					},
-					{
-						"name": "Result",
 						"type": "String"
 					}
 				]

@@ -11,6 +11,9 @@
 		"ls_sql_db1_password": {
 			"value": ""
 		},
+		"AzureDatabricks_parameter_accessToken": {
+			"value": ""
+		},
 		"linked_service_gen2_properties_typeProperties_url": {
 			"value": "https://himagen21.dfs.core.windows.net/"
 		},
@@ -25,6 +28,9 @@
 		},
 		"event_base_sam_properties_typeProperties_scope": {
 			"value": "/subscriptions/b9257822-39e9-42e4-a179-91fcd355694e/resourceGroups/Sam_Resource/providers/Microsoft.Storage/storageAccounts/himagen21"
+		},
+		"AzureDatabricks_parameter_properties_typeProperties_existingClusterId": {
+			"value": "0420-081433-ilqpegm3"
 		}
 	}
 }

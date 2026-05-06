@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ls_sql_db1'"
 		},
+		"AzureDatabricks_parameter_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks_parameter'"
+		},
 		"linked_service_gen2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://himagen21.dfs.core.windows.net/"
@@ -34,6 +38,10 @@
 		"event_base_sam_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/b9257822-39e9-42e4-a179-91fcd355694e/resourceGroups/Sam_Resource/providers/Microsoft.Storage/storageAccounts/himagen21"
+		},
+		"AzureDatabricks_parameter_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0420-081433-ilqpegm3"
 		}
 	},
 	"variables": {
@@ -135,7 +143,11 @@
 							},
 							"authentication": {
 								"type": "ServicePrincipal",
-								"userTenant": "20af5dab-fc57-481c-b70f-bd79fcb6e497"
+								"userTenant": "20af5dab-fc57-481c-b70f-bd79fcb6e497",
+								"password": {
+									"type": "SecureString",
+									"value": "**********"
+								}
 							}
 						}
 					}
@@ -2541,6 +2553,64 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/validate_fail_delete')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline_parameter_notebook')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Notebook1",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.00:10:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/himakatreddi227@gmail.com/base_code",
+							"baseParameters": {
+								"par1": "670",
+								"par2": "500"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks_parameter",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks_parameter')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricks_parameter')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-7405606493717925.5.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDatabricks_parameter_accessToken')]"
+					},
+					"existingClusterId": "[parameters('AzureDatabricks_parameter_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }

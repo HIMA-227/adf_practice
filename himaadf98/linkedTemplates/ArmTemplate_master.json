@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ls_sql_db1'"
 		},
+		"AzureDatabricks_parameter_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks_parameter'"
+		},
 		"linked_service_gen2_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://himagen21.dfs.core.windows.net/"
@@ -34,6 +38,10 @@
 		"event_base_sam_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/b9257822-39e9-42e4-a179-91fcd355694e/resourceGroups/Sam_Resource/providers/Microsoft.Storage/storageAccounts/himagen21"
+		},
+		"AzureDatabricks_parameter_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0420-081433-ilqpegm3"
 		},
 		"containerUri": {
 			"type": "string",
@@ -68,6 +76,9 @@
 					"ls_sql_db1_password": {
 						"value": "[parameters('ls_sql_db1_password')]"
 					},
+					"AzureDatabricks_parameter_accessToken": {
+						"value": "[parameters('AzureDatabricks_parameter_accessToken')]"
+					},
 					"linked_service_gen2_properties_typeProperties_url": {
 						"value": "[parameters('linked_service_gen2_properties_typeProperties_url')]"
 					},
@@ -79,6 +90,9 @@
 					},
 					"ls_sql_db1_properties_typeProperties_userName": {
 						"value": "[parameters('ls_sql_db1_properties_typeProperties_userName')]"
+					},
+					"AzureDatabricks_parameter_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('AzureDatabricks_parameter_properties_typeProperties_existingClusterId')]"
 					}
 				}
 			},
