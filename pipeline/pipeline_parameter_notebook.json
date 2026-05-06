@@ -25,8 +25,37 @@
 					"referenceName": "AzureDatabricks_parameter",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Notebook1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "notebook_out",
+					"value": {
+						"value": "@activity('Notebook1').output.runOutput",
+						"type": "Expression"
+					}
+				}
 			}
 		],
+		"variables": {
+			"notebook_out": {
+				"type": "Integer"
+			}
+		},
 		"annotations": []
 	}
 }
