@@ -15,7 +15,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/himakatreddi227@gmail.com/base_code"
+					"notebookPath": "/Users/himakatreddi227@gmail.com/base_code",
+					"baseParameters": {
+						"par1": "670",
+						"par2": "500"
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "AzureDatabricks_parameter",
@@ -23,14 +27,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"par1": {
-				"type": "int"
-			},
-			"par2": {
-				"type": "int"
-			}
-		},
 		"annotations": []
 	}
 }
