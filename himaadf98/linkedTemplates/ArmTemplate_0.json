@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "himaadf98"
 		},
+		"AzureDatabricks_parameter_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks_parameter'"
+		},
 		"linked_service_gen2_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'linked_service_gen2'"
@@ -15,9 +19,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ls_sql_db1'"
 		},
-		"AzureDatabricks_parameter_accessToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks_parameter'"
+		"AzureDatabricks_parameter_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0420-081433-ilqpegm3"
 		},
 		"linked_service_gen2_properties_typeProperties_url": {
 			"type": "string",
@@ -34,10 +38,6 @@
 		"ls_sql_db1_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "himaadmin"
-		},
-		"AzureDatabricks_parameter_properties_typeProperties_existingClusterId": {
-			"type": "string",
-			"defaultValue": "0420-081433-ilqpegm3"
 		}
 	},
 	"variables": {
@@ -273,6 +273,24 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricks_parameter')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-7405606493717925.5.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDatabricks_parameter_accessToken')]"
+					},
+					"existingClusterId": "[parameters('AzureDatabricks_parameter_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/linked_service_gen2')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -312,22 +330,73 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureDatabricks_parameter')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/pipeline_parameter_notebook')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [],
-				"type": "AzureDatabricks",
-				"typeProperties": {
-					"domain": "https://adb-7405606493717925.5.azuredatabricks.net",
-					"accessToken": {
-						"type": "SecureString",
-						"value": "[parameters('AzureDatabricks_parameter_accessToken')]"
+				"activities": [
+					{
+						"name": "Notebook1",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.00:10:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/himakatreddi227@gmail.com/base_code",
+							"baseParameters": {
+								"par1": "670",
+								"par2": "500"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricks_parameter",
+							"type": "LinkedServiceReference"
+						}
 					},
-					"existingClusterId": "[parameters('AzureDatabricks_parameter_properties_typeProperties_existingClusterId')]"
-				}
+					{
+						"name": "Set variable1",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Notebook1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "notebook_out",
+							"value": {
+								"value": "@activity('Notebook1').output.runOutput",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"variables": {
+					"notebook_out": {
+						"type": "Integer"
+					}
+				},
+				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks_parameter')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/pipeline_script')]",
@@ -854,40 +923,6 @@
 					},
 					{
 						"name": "Result",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/linked_service_gen2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_copy_specific')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "linked_service_gen2",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "1B4-SubjectwiseAttd-Upto16032020-1.xls",
-						"folderPath": "input002/input003",
-						"fileSystem": "input001"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "��\u0011ࡱ\u001a�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000>\u0000\u0003\u0000��\t\u0000\u0006\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\f\u0004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0010\u0000\u0000����\u0000\u0000\u0000\u0000����\u0000\u0000\u0000\u0000\u0003\u0004\u0000\u0000\u0004\u0004\u0000\u0000\u0005\u0004\u0000\u0000\u0006\u0004\u0000\u0000\u0007\u0004\u0000\u0000\b\u0004\u0000\u0000\t\u0004\u0000\u0000",
 						"type": "String"
 					}
 				]

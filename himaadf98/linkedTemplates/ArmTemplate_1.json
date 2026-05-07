@@ -6,16 +6,44 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "himaadf98"
-		},
-		"event_base_sam_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/b9257822-39e9-42e4-a179-91fcd355694e/resourceGroups/Sam_Resource/providers/Microsoft.Storage/storageAccounts/himagen21"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_copy_specific')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "linked_service_gen2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "1B4-SubjectwiseAttd-Upto16032020-1.xls",
+						"folderPath": "input002/input003",
+						"fileSystem": "input001"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "��\u0011ࡱ\u001a�\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000>\u0000\u0003\u0000��\t\u0000\u0006\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\t\u0000\u0000\u0000\f\u0004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0010\u0000\u0000����\u0000\u0000\u0000\u0000����\u0000\u0000\u0000\u0000\u0003\u0004\u0000\u0000\u0004\u0004\u0000\u0000\u0005\u0004\u0000\u0000\u0006\u0004\u0000\u0000\u0007\u0004\u0000\u0000\b\u0004\u0000\u0000\t\u0004\u0000\u0000",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ds_list_output')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -103,6 +131,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "sam_pretable",
 						"folderPath": "y=2026",
 						"fileSystem": "input001"
 					},
@@ -190,44 +219,6 @@
 					"schema": "himaschema",
 					"table": "pretable"
 				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipeline_parameter_notebook')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Notebook1",
-						"type": "DatabricksNotebook",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.00:10:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/himakatreddi227@gmail.com/base_code",
-							"baseParameters": {
-								"par1": "670",
-								"par2": "500"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks_parameter",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
 			},
 			"dependsOn": []
 		},
@@ -606,7 +597,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_output')]"
+				"[concat(variables('factoryId'), '/datasets/ds_output')]",
+				"[concat(variables('factoryId'), '/datasets/ds_copy_specific')]"
 			]
 		},
 		{
@@ -1663,34 +1655,112 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/event_base_sam')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
+			"name": "[concat(parameters('factoryName'), '/dataflow_sam')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "validate_fail_delete",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
+				"type": "MappingDataFlow",
 				"typeProperties": {
-					"blobPathBeginsWith": "/input001/blobs/",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('event_base_sam_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated",
-						"Microsoft.Storage.BlobDeleted"
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_sql_table_01",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "ds_part_in",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(output(",
+						"          id as integer,",
+						"          customer_name as string,",
+						"          city as string,",
+						"          product as string,",
+						"          sale_amount as decimal(10,2),",
+						"          commission_rate as decimal(4,2),",
+						"          order_date as date",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> source1",
+						"source1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          ID as string,",
+						"          Name as string,",
+						"          Department as string,",
+						"          Salary as string,",
+						"          Location as string,",
+						"          month as string",
+						"     ),",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sink1"
 					]
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/validate_fail_delete')]"
+				"[concat(variables('factoryId'), '/datasets/ds_sql_table_01')]",
+				"[concat(variables('factoryId'), '/datasets/ds_part_in')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline_data_flow')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Data flow1",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.00:10:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow_sam",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"source1": {},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/dataflow_sam')]"
 			]
 		}
 	]
