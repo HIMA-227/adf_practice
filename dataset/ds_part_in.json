@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "sam_pretable",
 				"folderPath": "y=2026",
 				"fileSystem": "input001"
 			},
