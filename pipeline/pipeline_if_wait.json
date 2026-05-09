@@ -47,35 +47,11 @@
 							}
 						},
 						{
-							"name": "Set variable1",
-							"type": "SetVariable",
-							"dependsOn": [
-								{
-									"activity": "Lookup2",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
-							"policy": {
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "lookup_output",
-								"value": {
-									"value": "@activity('Lookup2').output",
-									"type": "Expression"
-								}
-							}
-						},
-						{
 							"name": "Web1",
 							"type": "WebActivity",
 							"dependsOn": [
 								{
-									"activity": "Set variable1",
+									"activity": "Lookup2",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -120,6 +96,11 @@
 				}
 			}
 		],
+		"parameters": {
+			"lookup_output": {
+				"type": "object"
+			}
+		},
 		"variables": {
 			"var_sam": {
 				"type": "String",
@@ -130,6 +111,9 @@
 			},
 			"lookup_output": {
 				"type": "Array"
+			},
+			"sam": {
+				"type": "String"
 			}
 		},
 		"annotations": []
