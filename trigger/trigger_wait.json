@@ -1,0 +1,17 @@
+{
+	"name": "trigger_wait",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 15,
+				"startTime": "2026-05-09T10:17:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}
