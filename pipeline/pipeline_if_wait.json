@@ -65,7 +65,7 @@
 							"typeProperties": {
 								"variableName": "count_lookup_2",
 								"value": {
-									"value": "@activity('Lookup1').output.count",
+									"value": "@activity('Lookup2').output",
 									"type": "Expression"
 								}
 							}
