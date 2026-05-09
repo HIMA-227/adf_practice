@@ -1,0 +1,25 @@
+{
+	"name": "pipeline_wait",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait_sam",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@pipeline().parameters.sam_wait",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"sam_wait": {
+				"type": "int"
+			}
+		},
+		"annotations": []
+	}
+}
