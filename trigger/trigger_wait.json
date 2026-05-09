@@ -2,8 +2,18 @@
 	"name": "trigger_wait",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
-		"pipelines": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline_wait",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"sam_wait": 10
+				}
+			}
+		],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
