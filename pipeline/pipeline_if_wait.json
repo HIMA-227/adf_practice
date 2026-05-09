@@ -38,7 +38,7 @@
 									}
 								},
 								"dataset": {
-									"referenceName": "ds_output_merge",
+									"referenceName": "DelimitedText1",
 									"type": "DatasetReference"
 								},
 								"firstRowOnly": false
@@ -83,6 +83,30 @@
 								},
 								"firstRowOnly": false
 							}
+						},
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Lookup2",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "count_lookup_2",
+								"value": {
+									"value": "@activity('Lookup1').output.count",
+									"type": "Expression"
+								}
+							}
 						}
 					],
 					"ifTrueActivities": [
@@ -110,6 +134,9 @@
 			"var_sam": {
 				"type": "String",
 				"defaultValue": "rangamani"
+			},
+			"count_lookup_2": {
+				"type": "Integer"
 			}
 		},
 		"annotations": []
