@@ -63,7 +63,7 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"variableName": "count_lookup_2",
+								"variableName": "lookup_output",
 								"value": {
 									"value": "@activity('Lookup2').output",
 									"type": "Expression"
@@ -127,6 +127,9 @@
 			},
 			"count_lookup_2": {
 				"type": "Integer"
+			},
+			"lookup_output": {
+				"type": "Array"
 			}
 		},
 		"annotations": []
