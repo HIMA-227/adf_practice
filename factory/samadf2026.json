@@ -1,0 +1,15 @@
+{
+	"name": "samadf2026",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "9edc4642-4548-4d57-b38f-cc91d25f2db7",
+		"tenantId": "9df7428d-2ffa-4df7-a938-7545060517c3"
+	}
+}
