@@ -1,0 +1,15 @@
+{
+	"name": "himasamadf99",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3bb3d29d-4a92-4a3d-a3ed-6b441a1e717a",
+		"tenantId": "9df7428d-2ffa-4df7-a938-7545060517c3"
+	}
+}
