@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "employees.csv",
+				"fileName": "results.csv",
 				"folderPath": "table_files",
 				"fileSystem": "samfiles"
 			},
