@@ -1,0 +1,12 @@
+{
+	"name": "AzureDataLakeStoragemeta",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://himapractgen2.dfs.core.windows.net/",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDQzNkExN0ZCLUQ5M0EtNDZFOC1BQTE2LTQyQUVFNDk5QTlDMl84MTRkODFkYS1hYzBhLTQzMGYtYTEwNi03NTkwYjhlODA5M2IiDQp9"
+		}
+	}
+}
