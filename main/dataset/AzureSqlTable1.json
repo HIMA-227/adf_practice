@@ -16,7 +16,7 @@
 		],
 		"typeProperties": {
 			"schema": "himameta",
-			"table": "employee_salary"
+			"table": "sam_table"
 		}
 	}
 }
