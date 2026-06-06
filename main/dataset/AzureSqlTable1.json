@@ -16,7 +16,7 @@
 		],
 		"typeProperties": {
 			"schema": "himameta",
-			"table": "sam_table"
+			"table": "sam_table2"
 		}
 	}
 }
