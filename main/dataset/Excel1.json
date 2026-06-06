@@ -8,10 +8,9 @@
 		"annotations": [],
 		"type": "Excel",
 		"typeProperties": {
-			"sheetName": "Sheet1",
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "EMP.XLS",
+				"fileName": "EMP_SAL.XLS",
 				"folderPath": "table_files",
 				"fileSystem": "samfiles"
 			},
