@@ -1,0 +1,19 @@
+{
+	"name": "MetadataDrivenCopyTask_pdq_ControlDS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "MetadataDrivenCopyTask_pdq_20260606"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "himameta",
+			"table": "MainControlTable_pdq"
+		}
+	}
+}
